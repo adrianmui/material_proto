@@ -137,12 +137,17 @@ function(_, $http){
   }
 
   function _extendContent(component){
-    component.content = angular.element(component.content)
+    var wrapped = angular.element('<div class="col-xs-12 tipped">');
+    var newContent = angular.element(component.content).wrap(wrapped).parent();
+    
+    newContent
       .attr('ng-keydown', 'moveComponent($event)')
       .attr('ng-click', 'onClick($event)')
       .attr('ng-dblclick', 'dblClick($event)')
       .attr('data-head', 'head')
-      .attr('ng-class', "{ 'hovered': hovered }");
+      .attr('ng-class', "{ 'hovered': hovered }")
+
+    component.content = newContent;
   }
 
   function _logError (reason) {
