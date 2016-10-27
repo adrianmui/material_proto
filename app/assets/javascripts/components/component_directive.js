@@ -35,12 +35,14 @@ app.directive('component',
       };
 
       scope.dblClick = function($event){
+        console.log('cj');
         $event.stopPropagation();
         var $ele = angular.element($event.target);
         if(scope.doubleClicked){
           $ele.removeClass('hovered');
           tinyMCEService.clearEditors();
         } else {
+
           $ele.addClass('hovered');
           //if 'it' or its parent is textable
           if ($ele.has('.textable') || $ele.parents().has('.textable').length > 0)

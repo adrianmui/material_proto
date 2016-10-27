@@ -1,5 +1,32 @@
-<div class="component-button"
+<!-- <div class="component-button"
     ng-repeat="componentType in componentTypes()" ng-click="initiateComponents(componentType)">
   
   <p class="component-button-header">{{componentType}}</p>
+  
+</div> -->
+
+<div style="height: auto; display:inline-block;"
+      class="col-xs-12 container-fluid"
+      ng-repeat="component in baseComponents()"
+
+      ng-mouseenter = "setOptions(component.name)"
+      ng-mouseleave ="resetOptions()">
+
+    <div class="component-button" ng-click="initiateComponents(component.name)">
+      <p class="component-button-header">
+      {{component.name}}
+      </p>
+    
+    <div ng-show="showOptions === component.name">
+      <section ng-repeat="option in component.options" 
+          class="btn btn-raised col-xs-12" 
+         
+          ng-class="option"
+          style="margin:0; border: 0; padding:0;">      
+        {{option.slice(4)}}
+      </section>
+    </div>
+  </div>
 </div>
+
+ <!-- ng-click="initiateComponents(component.name, option)" -->

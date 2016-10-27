@@ -47,14 +47,16 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     compArray.forEach(_reactivateComponent);
   }
 
-  rowService.buildNewComponent = function(componentType, rowId){
+  rowService.buildNewComponent = function(componentType, rowId, option){
+    //extra options styling
+    var extraClass = option || "";
     var component = _activateComponent(componentType);
     if (rowId) {
       _addComponentToExistingRow(component, rowId);
     } else {
       _makeNewRow(component);
     }
-    _extendComponent(component);
+    _extendComponent(component, extraClass);
   };
 
   function _addComponentToExistingRow(component, rowId){
@@ -131,11 +133,16 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     return newRow;
   }
 
-  function _extendComponent(component){
-    component.moveLeft = _moveLeft;
-    component.moveRight = _moveRight;
-    component.moveUp = _moveUp;
-    component.moveDown = _moveDown;
+  function _extendComponent(component, extraClass){
+    // var xtra = extraClass || "";
+    // component.content = angular.element(component.content)
+    //                       .children()
+    //                       .addClass(xtra)
+    //                       .get(0);
+    // component.moveLeft = _moveLeft;
+    // component.moveRight = _moveRight;
+    // component.moveUp = _moveUp;
+    // component.moveDown = _moveDown;
     component.remove = _removeComponent;
   }
 

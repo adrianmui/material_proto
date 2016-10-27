@@ -49,7 +49,7 @@ function(_, $http, FlashService){
     var component = angular.copy(componentTypes[componentType], {});
     component.id = _id;
     // Need to give the component's html content an id to match later on.
-    angular.element(component.content[0]).attr('data-component-id', _id);
+    angular.element(component.content).attr('data-component-id', _id);
     console.log(component);
     data.cachedComponents.push(component);
     data.created.push(component);
@@ -70,6 +70,7 @@ function(_, $http, FlashService){
   componentService.cacheComponentLibrary = function(){
     $http.get('components.json')
       .then(function(data){
+        console.log('adrian', data);
         _baseComponents = data;
         componentTypes = data.data;
         _.each(componentTypes, function(component){
@@ -163,6 +164,7 @@ function(_, $http, FlashService){
     $content.find('h3').addClass('textable');
     $content.find('code').addClass('textable');
     $content.find('span').addClass('textable'); 
+    $content.find('button').addClass('textable'); 
     
     // is content
     $content.addClass('textable');
@@ -175,13 +177,15 @@ function(_, $http, FlashService){
     
     // newContent
 
+
     component.content = angular.element(component.content)
       .attr('ng-keydown', 'moveComponent($event)')
       .attr('ng-click', 'onClick($event)')
       .attr('ng-dblclick', 'dblClick($event)')
       .attr('data-head', 'head')
-      .attr('ng-class', "{ 'hovered': hovered }")
+      .attr('ng-class', "{ 'hovered': hovered }");
     _addTextable(component.content);
+
   }
 
   
